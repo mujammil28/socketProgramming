@@ -7,11 +7,70 @@
 </head>
 <body>
 
+        <div class="container">
+            <div class="chat-div">
+                <label>Chat App</label>
+                <form action="" method="POST" id="chat">
+                <div class="chat-box">
+                    <div class="chat-input">
+                    <label>Enter message:</label>
+                    <input type="text" id="chat-text-input" name="chatTextInput" />
+                    </div>
+                    <div class="send-button">
+                        <button type="submit" name="submit" id="send">Send</button>
+                    </div>
+
+                </div>
+
+                <div id="message-list">
+                    
+                </div>
+            </form>
+            </div>
+
+        </div>
+
+
+
+
+
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 
     <script>
 
+          
             const socket=io.connect('http://localhost:3000')
+
+           const chatForm= document.getElementById("chat");
+           const chatTextInput=document.getElementById("chat-text-input");
+            const messageList=document.getElementById("message-list");
+            
+           console.log(chatForm,chatTextInput,messageList)
+           chatForm.addEventListener("submit",(event)=>{
+      
+                event.preventDefault();
+                const message=chatTextInput.value;
+
+            if(message){
+
+                    socket.emit('new_message',message);
+
+
+                    const addMessageList=document.createElement("div");
+                    console.log(message)
+                    addMessageList.innerText=message;
+
+                    messageList.appendChild(addMessageList)
+
+                    chatTextInput.value="";
+
+            }
+            })
+
+            
+
+
+
 
     </script>
 
