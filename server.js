@@ -11,28 +11,30 @@ const server=http.createServer(app);
 const io= new Server(server, {
 
     cors:{
-
-        origin:'*',
+        origin:"*",
         methods:["GET","POST"],
-
     }
 });
 
+ io.on('connection',(socket)=>{
 
-io.on('connection',(socket)=>{
-
-    console.log("socket connection is established");
-
+ console.log("socket connection is established");
+  
     socket.on('disconnect',()=>{
-        
+
         console.log("socket connection is disconnected");
     })
 
 })
 
 
-server.listen(3000,()=>{
+app.get('/',(req,res)=>{
 
+    res.status(200).send("connection is established on :")
+})
+
+
+server.listen(3000,(req,res)=>{
     console.log("Server is running on port: 3000");
 })
 
