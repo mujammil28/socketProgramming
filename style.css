@@ -1,0 +1,34 @@
+
+
+
+.container{
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chat-div>label{
+    
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.chat-div{
+    background-color: rgb(69 164 181);
+    border-radius: 5px;
+    padding: 10px;
+    color: #fff;
+  
+}
+
+.send-button{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    
+}

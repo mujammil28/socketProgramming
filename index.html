@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHAT APP</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-
         <div class="container">
             <div class="chat-div">
                 <label>Chat App</label>
@@ -39,8 +39,8 @@
     <script>
 
           
+         
             const socket=io.connect('http://localhost:3000')
-
            const chatForm= document.getElementById("chat");
            const chatTextInput=document.getElementById("chat-text-input");
             const messageList=document.getElementById("message-list");
@@ -54,8 +54,7 @@
             if(message){
 
                     socket.emit('new_message',message);
-
-
+                
                     const addMessageList=document.createElement("div");
                     console.log(message)
                     addMessageList.innerText=message;
@@ -67,6 +66,12 @@
             }
             })
 
+            socket.on('send_message',(message)=>{
+
+                const messageEle=document.createElement("div");
+                messageEle.innerText=message;
+                messageList.appendChild(messageEle);
+            })
             
 
 
