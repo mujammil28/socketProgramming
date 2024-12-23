@@ -40,7 +40,12 @@
 
           
          
-            const socket=io.connect('http://localhost:3000')
+            const socket=io.connect('http://localhost:3000');
+
+            const userName=prompt("Please Enter Your Name:");
+
+            socket.emit("join",userName);
+
            const chatForm= document.getElementById("chat");
            const chatTextInput=document.getElementById("chat-text-input");
             const messageList=document.getElementById("message-list");
@@ -57,7 +62,7 @@
                 
                     const addMessageList=document.createElement("div");
                     console.log(message)
-                    addMessageList.innerText=message;
+                    addMessageList.innerText=userName+": "+message;
 
                     messageList.appendChild(addMessageList)
 
@@ -66,15 +71,13 @@
             }
             })
 
-            socket.on('send_message',(message)=>{
+            socket.on('send_message',(userDetail)=>{
 
                 const messageEle=document.createElement("div");
-                messageEle.innerText=message;
+                messageEle.innerText=userDetail.userName+": "+userDetail.message;
                 messageList.appendChild(messageEle);
             })
             
-
-
 
 
     </script>

@@ -20,9 +20,19 @@ const io= new Server(server, {
 
  console.log("socket connection is established");
     
+        socket.on("join",(data)=>{
+
+            socket.userName=data
+
+            })
+
     socket.on('new_message',(message)=>{
 
-        socket.broadcast.emit('send_message', message);
+        let userDetail={
+            userName:socket.userName,
+            message:message,
+        }
+        socket.broadcast.emit('send_message', userDetail);
 
     })
 
@@ -43,4 +53,3 @@ app.get('/',(req,res)=>{
 server.listen(3000,(req,res)=>{
     console.log("Server is running on port: 3000");
 })
-
