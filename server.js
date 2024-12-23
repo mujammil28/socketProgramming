@@ -2,7 +2,9 @@ import http from 'http';
 import express from 'express';
 import { Server } from 'socket.io';
 import cors from 'cors';
+import { dbConnect } from './config.js';
 
+import {chatModel} from './chat.schema.js'
 
 const app=express();
 
@@ -32,6 +34,16 @@ const io= new Server(server, {
             userName:socket.userName,
             message:message,
         }
+
+        const chatDataBase= new chatModel({
+                userName:socket.userName,
+                message:message,
+                dateTime:new Date(),
+
+        })
+
+            chatDataBase.save();
+
         socket.broadcast.emit('send_message', userDetail);
 
     })
@@ -52,4 +64,6 @@ app.get('/',(req,res)=>{
 
 server.listen(3000,(req,res)=>{
     console.log("Server is running on port: 3000");
+    dbConnect();
+    
 })

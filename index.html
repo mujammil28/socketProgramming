@@ -61,7 +61,7 @@
                     socket.emit('new_message',message);
                 
                     const addMessageList=document.createElement("div");
-                    console.log(message)
+                    
                     addMessageList.innerText=userName+": "+message;
 
                     messageList.appendChild(addMessageList)
@@ -72,7 +72,7 @@
             })
 
             socket.on('send_message',(userDetail)=>{
-
+                console.log(userDetail)
                 const messageEle=document.createElement("div");
                 messageEle.innerText=userDetail.userName+": "+userDetail.message;
                 messageList.appendChild(messageEle);
