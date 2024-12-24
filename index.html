@@ -68,13 +68,26 @@
 
                     chatTextInput.value="";
 
+                  
             }
             })
 
+            socket.on('load_Messages',(messages)=>{
+                messages.forEach(message => {
+                        const messageEle=document.createElement("div");
+               // console.log(message.userName)
+                messageEle.innerText=message.dateTime.replace('T', ' ')+"-"+message.userName+": "+message.message;
+                messageList.appendChild(messageEle);
+                    });
+               
+            })
             socket.on('send_message',(userDetail)=>{
-                console.log(userDetail)
+                console.log(userDetail.dateTime)
                 const messageEle=document.createElement("div");
-                messageEle.innerText=userDetail.userName+": "+userDetail.message;
+
+                //2024-12-24T10:30:20.484Z
+
+                messageEle.innerText=((userDetail.dateTime).replace(/[T]/g," ")).split('.')[0]+"      :"+userDetail.userName+": "+userDetail.message;
                 messageList.appendChild(messageEle);
             })
             

@@ -26,6 +26,15 @@ const io= new Server(server, {
 
             socket.userName=data
 
+            chatModel.find().sort({dateTime:1}).limit(50)
+            .then(message=>{
+
+                socket.emit("load_Messages", message);
+             //   console.log(message)
+            }).catch(err=>{
+                console.log(err);
+            })
+
             })
 
     socket.on('new_message',(message)=>{
@@ -33,6 +42,8 @@ const io= new Server(server, {
         let userDetail={
             userName:socket.userName,
             message:message,
+            dateTime:new Date(),
+
         }
 
         const chatDataBase= new chatModel({
